@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <v-header></v-header>
+    <v-header v-bind:seller="seller"></v-header>
     <div class="tab">
       <div class="tab-item">
         <router-link to="/goods">to goods</router-link>
@@ -12,48 +12,68 @@
         <router-link to="/seller">to seller</router-link>
       </div>
     </div>
-    <img class="vueimg" src="./assets/logo.png">
     <keep-alive>
       <router-view></router-view>
     </keep-alive>
   </div>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
   import header from 'components/header/header'
+
+  const ERR_OK = 0;
+
   export default {
-  name: 'app',
-  components: {
-    'v-header': header
-  }
+    name: 'app',
+    components: {
+      'v-header': header
+    },
+    data() {
+      return {
+        seller: {}
+      }
+    },
+    // 此处使用生命周期钩子函数created()
+    // 来在实例创建完成后立即调用此函数
+    created() {
+      this.$http.get('/api/seller').then((response) => {
+        response = response.body;
+        if (response.errno === ERR_OK) {
+          this.seller = response.data;
+          console.log(this.seller)
+        }
+      });
+    }
+
 }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-
+  @import "./common/stylus/mixin.styl";
   /*#app .tab{*/
     /*display: flex;*/
     /*text-align: center;*/
   /*}*/
-  #app
+
     .tab
       display:flex
       width: 100%
       height: 40px
       /*添加line-height=height后才能在之后做到垂直居中*/
       line-height: 40px
-      border-bottom: 1px solid rgba(1,12,24,0.2)
+      /*border-bottom: 10px solid rgba(1,12,24,0.2)*/
+      border-1px(rgba(7,17,27,0.1))
       .tab-item
         flex: 1
         text-align: center
-        .tab-item-a
+        & > a
+          /*此处将子组件充满父容器，使得可点击范围变为父容器的大小*/
           display: block
-          font-size: 50px
+          font-size: 14px
+          color: rgb(77,85,93)
+          /*此处的active在index.js中通过linkActiveClass定义*/
+          &.active
+            color: rgb(240,20,20)
 
-
-    .vueimg
-      width: 15px
-      height: 30px
-      float: right
 
 </style>
