@@ -5,7 +5,7 @@
           :key="index"
           :class="itemClass"
           class="star-item"
-        ></span>
+        >233</span>
     </div>
 </template>
 
