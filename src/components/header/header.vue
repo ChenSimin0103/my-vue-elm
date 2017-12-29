@@ -30,7 +30,8 @@
       <div class="background">
         <img  :src="seller.avatar">
       </div>
-      <div class="detail" v-show="detailShow" transition="fade">
+      <transition name="fade">
+      <div class="detail" v-show="detailShow">
         <div class="detail-wrapper clearfix">
           <div class="detail-main">
             <h1 class="name">{{seller.name}}</h1>
@@ -62,6 +63,7 @@
           <i class="icon-close"></i>
         </div>
       </div>
+      </transition>
     </div>
 </template>
 
@@ -106,8 +108,8 @@
   }
 </script>
 
-<style lang="stylus">
-  @import "header.styl";
+<style lang="stylus" rel="stylesheet">
+  @import "./header.styl";
 
 </style>
 
@@ -122,7 +124,6 @@
     <!--background-color: rgba(7,17,27,0.5);-->
     <!--/*background-color: green*/-->
   <!--}-->
-
   <!--.header .content-warpper {-->
     <!--position: relative;-->
     <!--padding: 24px 12px 18px 24px;-->
