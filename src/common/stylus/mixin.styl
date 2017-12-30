@@ -1,3 +1,5 @@
+
+// 一像素线的实现原理： 在莫元素后跟上一个内容只有1px边框的元素
 border-1px($color)
   position: relative
   &:after
@@ -9,6 +11,7 @@ border-1px($color)
     border-top: 1px solid $color
     content: ' '
 
+// 用于取消一像素效果
 border-none()
   &:after
     display: none
