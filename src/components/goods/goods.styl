@@ -21,6 +21,13 @@
       padding 0 12px
       line-height 14px
       font-size 0
+      &.current
+        margin-top -1px
+        z-index 10
+        background #fff
+        font-weight 700px
+        .text
+          border-none()
       .text
         display table-cell
         width 56px
@@ -81,28 +88,37 @@
         .desc
           margin 8px 0
           font-size 10px
-          line-height 10px
+          line-height 14px
           color rgb(147,153,159)
         .extra
           margin 8px 0
           font-size 10px
           line-height 10px
           color rgb(147,153,159)
+          .extra-sell
+            margin-right 12px
         .price
-          font-size 14px
-          color rgb(240,20,20)
+          // 这里设置 font-weight 竟然没用？？
           font-weight 700
           line-height 24px
+          // 整体font-size设为0，子元素单设font-size来使得子元素之间无间距
+          font-size 0
+          //vertical-align top
           //:first-child
           //  font-size 10px
           //  font-weight normal
-        .old-price
-          font-size 10px
-          color rgb(147,153,159)
-          font-weight 700
-          line-height 24px
-          :first-child
-            font-weight normal
+          .new-price
+            font-size 14px
+            font-weight 700
+            color rgb(240,20,20)
+            margin-right 8px
+            .price-icon
+              font-size 10px
+          .old-price
+            font-size 10px
+            font-weight 700
+            color rgb(147,153,159)
+            text-decoration line-through
 
 
 
