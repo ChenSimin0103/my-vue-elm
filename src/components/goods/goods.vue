@@ -5,6 +5,7 @@
           <li v-for="(item,index) in goods"
               class="menu-item"
               :class="{'current':currentIndex===(index)}"
+
               @click="selectMenu(index,$event)"
               ref="menuList" >
             <span class="text" >
@@ -40,12 +41,14 @@
           </li>
         </ul>
       </div>
+      <shopcart ref="shopcart"></shopcart>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
 
   import BScroll from 'better-scroll'
+  import shopcart from '../shopcart/shopcart'
 
   const ERR_OK = 0
 
@@ -56,7 +59,9 @@
         type: Object
       }
     },
-    components: {},
+    components: {
+      shopcart
+    },
     data () {
       return {
         goods: {},
@@ -72,20 +77,24 @@
         for (let i=0;i<this.listHeight.length;i++) {
           let height1 = this.listHeight[i]
           let height2 = this.listHeight[i+1]
-          if (!height2 || (this.scrollY >= height1 && this.scrollY <= height2)) {
+          if (!height2 || (this.scrollY >= height1 && this.scrollY < height2)) {
             return i
-            // console.log('当前菜单落在：' + i)
+            console.log('currentIndex：' + i)
           }
         }
-        return -1
+        return 0
       }
     },
     methods: {
       selectMenu(index,event) {
         // console.log(index)
         if (!event._constructed) {
-          return
+          return;
         }
+        console.log('菜单栏点击的序号' + index)
+        let foodList = this.$refs.foodList
+        let el = foodList[index]
+        this.foodsScroll.scrollToElement(el, 300)
       },
       _initScroll() {
         this.menuScroll = new BScroll(this.$refs.menuWrapper,{
@@ -124,7 +133,7 @@
         if (response.errno === ERR_OK) {
           this.goods = response.data;
           // 不使用 $nextTick()，this._initScroll()正常，this._calculateHeight()显示未定义的对象
-          // this._initScroll();
+          // $nextTick() 这个回调函数之后DOM才会发生改变，故与DOM属性相关的操作应当放在里面
           this.$nextTick(() => {
             this._initScroll()
             this._calculateHeight()

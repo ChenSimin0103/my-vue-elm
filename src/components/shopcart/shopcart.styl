@@ -1,0 +1,56 @@
+
+@import "../../common/stylus/mixin.styl"
+
+.shopcart
+  position fixed
+  left 0
+  bottom 0
+  z-index 50
+  width 100%
+  height 48px
+  background greenyellow
+  .content
+    display flex
+    font-size 0
+    background #141d27
+    color rgba(255,255,255,0.4)
+    .content-left
+      flex 1
+      .logo-wrapper
+        display inline-block
+        position relative
+        top -10px
+        padding 12px
+        margin 0 6px
+        // 使用border-box 设置的宽高即是 content+padding+border 的长度
+        width 56px
+        height 56px
+        box-sizing border-box
+        vertical-align top
+        // 50%的圆角即是圆
+        border-radius 50%
+        background #141d27
+        .logo
+          width 100%
+          height 100%
+          border-radius 50%
+          text-align center
+          background #2b343c
+          .icon-shopping_cart
+            //width 100%
+            //height 100%
+            line-height 44px
+            font-size 24px
+            //color #80858a
+            color greenyellow
+      .price
+        display inline-block
+        font-size 16px
+        color rgba(255,255,255,0.4)
+        font-weight 700
+        line-height 24px
+      .desc
+        display inline-block
+    .content-right
+    // 105px即是按钮的宽度 该设置使其不伸缩，宽度定死
+      flex 0 0 105px
