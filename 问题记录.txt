@@ -7,5 +7,12 @@ Q2：浮层中的星级组件编写引入无异常，调试可见确实
 A2：星级组件引入图片的部分代码是通过引入mixin.styl来完成的，
 	而在star.vue中引入star.styl和mixin.styl,mixin.styl不起作用
 	在star.styl中引入mixin.styl后图片显示了出来
+
 2017.12.27
 Q1: 给header组件的detail显示后设背景高斯模糊，使用"backdrop-fliter: blur(..)"，显示未识别的属性
+A1：
+
+2018.1.4
+Q1&A1：因seller的数据是在app.vue 的生命周期钩子created()中拿到的，故在使用时都要向app.vue中的自定义组件重新传一遍（:seller="seller"）
+       否则只在自定义组件中向下一级组件传递是会出问题的
+

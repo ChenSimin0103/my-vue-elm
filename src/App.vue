@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <v-header v-bind:seller="seller"></v-header>
+    <v-header :seller="seller"></v-header>
     <div class="tab">
       <div class="tab-item">
         <router-link to="/goods">to goods</router-link>
@@ -13,7 +13,7 @@
       </div>
     </div>
     <keep-alive>
-      <router-view></router-view>
+      <router-view :seller="seller"></router-view>
     </keep-alive>
   </div>
 </template>

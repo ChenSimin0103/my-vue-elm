@@ -41,7 +41,10 @@
           </li>
         </ul>
       </div>
-      <shopcart ref="shopcart"></shopcart>
+      <shopcart
+        :delivery-price="seller.deliveryPrice"
+        :min-price="seller.minPrice"
+        ref="shopcart"></shopcart>
     </div>
 </template>
 
