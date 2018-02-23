@@ -35,6 +35,9 @@
                     <span class="new-price"><span class="price-icon">￥</span>{{food.price}}</span>
                     <span class="old-price" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
                   </div>
+                  <div class="cartcontrol-wrapper">
+                    <cartcontrol :food="food"></cartcontrol>
+                  </div>
                 </div>
               </li>
             </ul>
@@ -50,8 +53,9 @@
 
 <script type="text/ecmascript-6">
 
-  import BScroll from 'better-scroll'
-  import shopcart from '../shopcart/shopcart'
+  import BScroll from 'better-scroll';
+  import shopcart from '../shopcart/shopcart';
+  import cartcontrol from  '../cartcontrol/cartcontrol';
 
   const ERR_OK = 0
 
@@ -63,7 +67,8 @@
       }
     },
     components: {
-      shopcart
+      shopcart,
+      cartcontrol
     },
     data () {
       return {
@@ -78,11 +83,11 @@
 //        let num = Math.round(this.scrollY/400)
 //        return num
         for (let i=0;i<this.listHeight.length;i++) {
-          let height1 = this.listHeight[i]
-          let height2 = this.listHeight[i+1]
+          let height1 = this.listHeight[i];
+          let height2 = this.listHeight[i+1];
           if (!height2 || (this.scrollY >= height1 && this.scrollY < height2)) {
-            return i
-            console.log('currentIndex：' + i)
+            return i;
+            console.log('currentIndex：' + i);
           }
         }
         return 0
@@ -90,7 +95,7 @@
     },
     methods: {
       selectMenu(index,event) {
-        // console.log(index)
+        console.log(index)
         if (!event._constructed) {
           return;
         }
@@ -121,10 +126,10 @@
         let height = 0
         this.listHeight.push(height);
         for (let i = 0; i<foodList.length; i++){
-          let item = foodList[i]
-          height += item.clientHeight
-          this.listHeight.push(height)
-          console.log('foodList高度是：' + this.listHeight)
+          let item = foodList[i];
+          height += item.clientHeight;
+          this.listHeight.push(height);
+          console.log('foodList高度是：' + this.listHeight);
         }
       }
 

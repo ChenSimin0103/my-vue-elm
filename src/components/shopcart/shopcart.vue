@@ -16,7 +16,7 @@
             class="pay"
             :class="payClass"
           >
-            ￥{{payDesc}}
+            {{payDesc}}
           </div>
         </div>
       </div>
@@ -32,7 +32,7 @@
         type: Array,
         // 如果default值是数组/对象，则要写成函数形式
         default() {
-          return [ {price: 10,count: 1},{price: 15,count: 6} ]
+          return [ {price: 10,count: 0},{price: 15,count: 2} ]
         }
       },
       deliveryPrice: {
@@ -47,14 +47,15 @@
     data () {
       return {}
     },
-    methods: {},
+    methods: {
+    },
     computed: {
       // 计算已选择商品的总价格
       totalPrice() {
         let total = 0
         this.selectFoods.forEach(
           (food) => {
-            total += food.price*food.count
+            total += food.price * food.count
           })
         return total
       },
@@ -69,18 +70,23 @@
       },
       // 由已选择的商品来判断 pay 中的显示内容
       payDesc() {
-        if (this.totalPrice===0)
-          return '￥元'+ this.minPrice +'起送'
+        if (this.totalPrice === 0)
+//          return '￥元'+ this.minPrice +'起送'
+          return `￥元${this.minPrice}起送`;
         else if (this.totalPrice<this.minPrice) {
           let diff = this.minPrice - this.totalPrice
-          return '还差￥' + diff + '元起送'
+//          return '还差￥' + diff + '元起送'
+          return `还差￥${diff}元起送`;
         }
         else
           return '去结算'
       },
       // 由已选择的商品来判断 pay 的显示样式
       payClass() {
-
+        if (this.totalPrice < this.minPrice)
+          return 'not-enough';
+        else
+          return 'enough';
       },
       // 购物车列表是否显示
       listShow() {
