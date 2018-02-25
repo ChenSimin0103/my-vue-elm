@@ -1,6 +1,14 @@
 <template>
     <div class="cartcontrol">
-      <div class="cart-decrease icon-remove_circle_outline" v-show="food.count>0" @click="decreaseCart"></div>
+      <transition name="move">
+        <div
+          class="cart-decrease"
+          v-show="food.count>0"
+          @click="decreaseCart"
+        >
+          <span class="inner icon-remove_circle_outline"></span>
+        </div>
+      </transition>
       <div class="cart-count" v-show="food.count>0">{{food.count}}</div>
       <div class="cart-add icon-add_circle" @click="addCart"></div>
     </div>
@@ -23,15 +31,23 @@
     created() {
     },
     methods: {
-      addCart() {
-        console.log('had click')
+      addCart(event) {
+        // 防止浏览器端响应两次事件
+        if(!event._constructed) {
+          return;
+        };
+        console.log('had click');
         if (!this.food.count)
 //          this.food.count = 1;
           Vue.set(this.food, 'count', 1);
         else
           this.food.count++;
+        this.$emit('add', event.target);
       },
-      decreaseCart() {
+      decreaseCart(event) {
+        if (!event._constructed) {
+          return;
+        }
         if (this.food.count)
           this.food.count--;
       }

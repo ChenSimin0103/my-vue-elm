@@ -16,3 +16,13 @@ A1：
 Q1&A1：因seller的数据是在app.vue 的生命周期钩子created()中拿到的，故在使用时都要向app.vue中的自定义组件重新传一遍（:seller="seller"）
        否则只在自定义组件中向下一级组件传递是会出问题的
 
+2018.2.25
+Q1&A1: 报 "TypeError: this.goods.forEach is not a function" 这个错误，代码可正常运行，检查原因是在data里定义goods时定义成了Object而不是Array，
+	而forEach是Array的一个遍历方法（正确的定义：goods: []）
+Q2&A2: vue之前版本的派发时间方法$dispach 已不再支持，现在是使用$emit('事件名',事件)来向父组件传一个事件，在父组件里使用子组件的位置，使用 @事件名 来监听事件是否发生，
+	发生后在methods里写处理逻辑。
+	父组件的事件传给子组件，在子组件被使用的位置加 ref='子组件名或其他'，使用this.$refs.子组件.子组件(参数) 的方式在父组件中使用子组件的方法
+	Tip: vm.$refs 是一个对象，持有已注册过ref的所有子组件
+Q3&A3：
+
+

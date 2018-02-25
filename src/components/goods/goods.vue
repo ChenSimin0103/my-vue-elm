@@ -36,7 +36,7 @@
                     <span class="old-price" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
                   </div>
                   <div class="cartcontrol-wrapper">
-                    <cartcontrol :food="food"></cartcontrol>
+                    <cartcontrol @add="addFood" :food="food"></cartcontrol>
                   </div>
                 </div>
               </li>
@@ -45,6 +45,7 @@
         </ul>
       </div>
       <shopcart
+        :select-foods="selectFoods"
         :delivery-price="seller.deliveryPrice"
         :min-price="seller.minPrice"
         ref="shopcart"></shopcart>
@@ -72,7 +73,7 @@
     },
     data () {
       return {
-        goods: {},
+        goods: [],
         listHeight: [],
         scrollY: 0
       }
@@ -91,6 +92,16 @@
           }
         }
         return 0
+      },
+      selectFoods() {
+        let foods = [];
+        this.goods.forEach((good) => {
+          good.foods.forEach((food) => {
+            if(food.count)
+              foods.push(food);
+          })
+        })
+        return foods;
       }
     },
     methods: {
@@ -103,6 +114,9 @@
         let foodList = this.$refs.foodList
         let el = foodList[index]
         this.foodsScroll.scrollToElement(el, 300)
+      },
+      addFood(target) {
+        this._drop(target);
       },
       _initScroll() {
         this.menuScroll = new BScroll(this.$refs.menuWrapper,{
@@ -131,8 +145,14 @@
           this.listHeight.push(height);
           console.log('foodList高度是：' + this.listHeight);
         }
+      },
+      _drop(target) {
+        // 两个动画一起出发会卡 但实测其实也不用进行性能优化
+        this.$refs.shopcart.drop(target);
+//        this.$nextTick(() => {
+//          this.$refs.shopcart.drop(target)
+//        })
       }
-
     },
     created() {
       this.classMap = ['decrease','discount','special','invoice','guarantee'],
@@ -150,7 +170,6 @@
         }
       })
         // 因为传入了seller,其中的classMap还需再定义一次
-
     }
   }
 </script>
