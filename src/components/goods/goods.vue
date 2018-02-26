@@ -132,7 +132,7 @@
           // 此处需要先取整在变正数
           // this.scrollY = Math.round(pos.y)
           // this.scrollY = pos.y
-          console.log(this.scrollY)
+          // console.log(this.scrollY)
         })
       },
       _calculateHeight() {
