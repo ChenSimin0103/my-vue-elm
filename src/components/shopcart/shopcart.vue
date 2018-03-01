@@ -110,7 +110,7 @@
     },
     methods: {
       drop(el) {
-        console.log('进入shopcart组件')
+        console.log('---小球飞了-------')
         console.log(el);
         for(let i = 0; i < this.balls.length; i++) {
           let ball = this.balls[i];

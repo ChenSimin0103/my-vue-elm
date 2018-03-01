@@ -27,4 +27,8 @@ Q2&A2: vue之前版本的派发时间方法$dispach 已不再支持，现在是�
 2018.2.26
 Q1: shopcart组件模糊的背景蒙层，动画效果不生效
 
+2018.3.1
+Q1: 点击事件穿透---在goods组件中，cartcontrol组件和food组件是重叠的，点击cartcontrol的同时也响应了food组件的点击事件
+A1：使用事件修饰符 .stop 如：@click.stop='' 
+	另：.prevent 可阻止默认事件的触发
 
