@@ -24,7 +24,22 @@
             <div class="buy" @click.stop.prevent="addFirst(food,$event)" v-show="!food.count || food.conut===0">加入购物车</div>
           </transition>
         </div>
-        <split></split>
+        <split v-show="food.info"></split>
+        <div class="info" v-show="food.info">
+          <h1 class="title">商品介绍</h1>
+          <p class="text">{{food.info}}</p>
+        </div>
+        <split v-show="food.info"></split>
+        <div class="rating">
+          <h1 class="title">商品评价</h1>
+          <ratingselect
+          :select-type="selectType"
+          :only-content="onlyContent"
+          :desc="desc"
+          :ratings="food.ratings"
+          
+          ></ratingselect>
+        </div>
       </div>
     </transition>
 </template>
@@ -34,12 +49,18 @@
   import cartcontrol from '../cartcontrol/cartcontrol';
   import Vue from 'vue';
   import split from '../split/split'
+  import ratingselect from '../ratingselect/ratingselect'
+
+  // 预定义 全部，推荐及吐槽的值，便于维护
+  const POSITIVE = 0;
+  const NEGATIVE = 1;
+  const ALL = 2;
 
   export default {
-    name: '',
     components: {
       cartcontrol,
-      split
+      split,
+      ratingselect
     },
     props: {
       food: {
@@ -48,13 +69,22 @@
     },
     data () {
       return {
-        showFlag: false
+        showFlag: false,
+        selectType: ALL,
+        onlyContent: false,
+        desc: {
+          all: '全部',
+          positive: '推荐',
+          negative: '吐槽'
+        }
       }
     },
     methods: {
       // 隐藏及显示food组件，简单好用的写法
       show() {
         this.showFlag = true;
+        this.selectType = ALL;
+        this.onlyContent = true;
         // 必须在下一个事件循环内计算与DOM相关的属性，否则可能会因为还未渲染而计算错误
         this.$nextTick(() => {
           // 因需要多次渲染，故判断是否存在，存在直接刷新，不存在要先new一个
