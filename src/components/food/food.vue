@@ -60,6 +60,23 @@
 
           </div>
         </div>
+        <split v-show="food.info"></split>
+        <div class="info" v-show="food.info">
+          <h1 class="title">商品介绍</h1>
+          <p class="text">{{food.info}}</p>
+        </div>
+        <split v-show="food.info"></split>
+        <div class="rating">
+          <h1 class="title">商品评价</h1>
+          <ratingselect
+          :select-type="selectType"
+          :only-content="onlyContent"
+          :desc="desc"
+          :ratings="food.ratings"
+          
+          ></ratingselect>
+        </div>
+      </div>
     </transition>
 </template>
 
@@ -70,12 +87,12 @@
   import split from '../split/split'
   import ratingselect from '../ratingselect/ratingselect'
 
+  // 预定义 全部，推荐及吐槽的值，便于维护
   const POSITIVE = 0;
   const NEGATIVE = 1;
   const ALL = 2;
 
   export default {
-    name: '',
     components: {
       cartcontrol,
       split,
