@@ -1,8 +1,11 @@
 
+@import "../../common/stylus/mixin.styl"
+
 .food
   position fixed
   left 0
   top 0
+  // 因底部购物车组件高度48px，故设置
   bottom 48px
   z-index 30
   width 100%
@@ -63,29 +66,83 @@
         font-weight 700
         color rgb(147,153,159)
         text-decoration line-through
+    .cartcontrol-wrapper
+      position absolute
+      right 12px
+      bottom 12px
+    .buy
+      position absolute
+      right 18px
+      bottom 18px
+      z-index 10
+      height 24px
+      line-height 24px
+      padding 0px 12px
+      box-sizing border-box
+      border-radius 12px
+      color #fff
+      background rgb(0,160,220)
+      &.buy-enter-active, &.buy-leave-active
+        transition all .2s linear
+        opacity 1
+      &.buy-enter, &.buy-leave-to
+        opacity 0
+
+  .info
+    padding 18px
+    .title
+      margin-bottom 8px
+      line-height 14px
+      font-size 16px
+      font-weight 700
+      color rgb(7,17,27)
+    .text
+      padding 0 8px
+      font-size 12px
+      line-height 24px
+      color rgb(77,85,93)
+
+  .rating
+    padding-top 18px
+    .title
+      line-height 14px
+      margin-left 6px
+      font-size 14px
+      color rgb(7,17,27)
+  .rating-wrapper
+    padding 0 16px
+    .rating-item
+      // 默认布局就为相对布局，故不用再写一遍
+      //position relative
+      padding 16px 0
+      //border-bottom 1px solid rgba(7,17,27,0.1)
+      border-1px(rgba(7,17,27,0.1))
+      .user
+        position absolute
+        top 16px
+        right 0
+        .name
+          //display inline-block
+          //vertical-align top
+          margin-right 6px
+          font-size 10px
+          color rgb(147,153,159)
+          line-height 12px
+      .time
+        font-size 10px
+        color rgb(147,153,159)
+        line-height 12px
+      .text
+        margin-top 6px
+        font-size 14px
+        color rgb(7,17,27)
+        line-height 16px
+        .icon-thumb_up
+          color rgb(0,160,220)
+        .icon-thumb_down
+          color rgb(147,153,159)
 
 
 
-  .cartcontrol-wrapper
-    position absolute
-    right 12px
-    bottom 12px
-  .buy
-    position absolute
-    right 18px
-    bottom 18px
-    z-index 10
-    height 24px
-    line-height 24px
-    padding 0px 12px
-    box-sizing border-box
-    border-radius 12px
-    color #fff
-    background rgb(0,160,220)
-    &.buy-enter-active, &.buy-leave-active
-      transition all .2s linear
-      opacity 1
-    &.buy-enter, &.buy-leave-to
-      opacity 0
 
 

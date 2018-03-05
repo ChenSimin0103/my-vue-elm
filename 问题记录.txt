@@ -32,3 +32,7 @@ Q1: 点击事件穿透---在goods组件中，cartcontrol组件和food组件是�
 A1：使用事件修饰符 .stop 如：@click.stop='' 
 	另：.prevent 可阻止默认事件的触发
 
+	
+2018.3.5
+Q1&A1：对food组件应用BScroll插件实现超窗口后滑动出了问题，包在动画标签transition外冲突？
+		实际应该这样写：transition里包住一个整体单个div（放置BScroll的ref），里面再包含所有页面内容
