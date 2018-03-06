@@ -1,80 +1,63 @@
 <template>
     <transition name="move">
-        <div class="food" v-show="showFlag" ref="food">
-          <div class="food-content">
-            <div class="image-header">
-              <img :src="food.image">
-              <div class="back" @click="hide">
-                <i class="icon-arrow_lift"></i>
-              </div>
+      <div class="food" v-show="showFlag" ref="food">
+        <div class="food-content">
+          <div class="image-header">
+            <img :src="food.image">
+            <div class="back" @click="hide">
+              <i class="icon-arrow_lift"></i>
             </div>
-            <div class="content">
-              <h1 class="title">{{food.name}}</h1>
-              <div class="detail">
-                <span class="sell-count">月售{{food.sellCount}}</span>
-                <span class="rating">好评率{{food.rating}}%</span>
-              </div>
-              <div class="price">
-                <span class="now">￥{{food.price}}</span>
-                <span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
-              </div>
-              <div class="cartcontrol-wrapper">
-                <cartcontrol @add="addFood" :food="food"></cartcontrol>
-              </div>
-              <transition name="buy">
-                <div class="buy" @click.stop.prevent="addFirst(food,$event)" v-show="!food.count || food.conut===0">加入购物车</div>
-              </transition>
-            </div>
-            <split v-show="food.info"></split>
-            <div class="info" v-show="food.info">
-              <h1 class="title">商品信息</h1>
-              <p class="text">{{food.info}}</p>
-            </div>
-            <split></split>
-            <div class="rating">
-              <h1 class="title">商品评价</h1>
-              <ratingselect
-                :select-type="selectType"
-                :only-content="onlyContent"
-                :desc="desc"
-                :ratings="food.ratings"
-              ></ratingselect>
-            </div>
-
-            <div class="rating-wrapper">
-              <ul v-show="food.ratings && food.ratings.length">
-                <li class="rating-item" v-for="rating in food.ratings">
-                  <div class="user">
-                    <span class="name">{{rating.username}}</span>
-                    <img class="avatar" width="12" height="12" :src="rating.avatar">
-                  </div>
-                  <div class="time">{{rating.rateTime}}</div>
-                  <p class="text">
-                    <span class="thumb" :class="{'icon-thumb_up':rating.rateType===0,'icon-thumb_down':rating.rateType===1}"></span>
-                    {{rating.text}}
-                  </p>
-                </li>
-              </ul>
-              <div class="no-rating" v-show="!food.ratings || !food.ratings.length"></div>
-            </div>
-
           </div>
-        </div>
-        <split v-show="food.info"></split>
-        <div class="info" v-show="food.info">
-          <h1 class="title">商品介绍</h1>
-          <p class="text">{{food.info}}</p>
-        </div>
-        <split v-show="food.info"></split>
-        <div class="rating">
-          <h1 class="title">商品评价</h1>
-          <ratingselect
-          :select-type="selectType"
-          :only-content="onlyContent"
-          :desc="desc"
-          :ratings="food.ratings"
-          
-          ></ratingselect>
+          <div class="content">
+            <h1 class="title">{{food.name}}</h1>
+            <div class="detail">
+              <span class="sell-count">月售{{food.sellCount}}</span>
+              <span class="rating">好评率{{food.rating}}%</span>
+            </div>
+            <div class="price">
+              <span class="now">￥{{food.price}}</span>
+              <span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
+            </div>
+            <div class="cartcontrol-wrapper">
+              <cartcontrol @add="addFood" :food="food"></cartcontrol>
+            </div>
+            <transition name="buy">
+              <div class="buy" @click.stop.prevent="addFirst(food,$event)" v-show="!food.count || food.conut===0">加入购物车</div>
+            </transition>
+          </div>
+          <split v-show="food.info"></split>
+          <div class="info" v-show="food.info">
+            <h1 class="title">商品信息</h1>
+            <p class="text">{{food.info}}</p>
+          </div>
+          <split></split>
+          <div class="rating">
+            <h1 class="title">商品评价</h1>
+            <ratingselect
+              :select-type="selectType"
+              :only-content="onlyContent"
+              :desc="desc"
+              :ratings="food.ratings"
+              @select="selectRating"
+              @toggle="toggleContent"
+            ></ratingselect>
+          </div>
+          <div class="rating-wrapper">
+            <ul v-show="food.ratings && food.ratings.length">
+              <li class="rating-item" v-for="rating in food.ratings" v-show="needShow(rating.rateType,rating.text)">
+                <div class="user">
+                  <span class="name">{{rating.username}}</span>
+                  <img class="avatar" width="12" height="12" :src="rating.avatar">
+                </div>
+                <div class="time">{{rating.rateTime | formatDate}}</div>
+                <p class="text">
+                  <span class="thumb" :class="{'icon-thumb_up':rating.rateType===0,'icon-thumb_down':rating.rateType===1}"></span>
+                  {{rating.text}}
+                </p>
+              </li>
+            </ul>
+            <div class="no-rating" v-show="!food.ratings || !food.ratings.length">暂无评价</div>
+          </div>
         </div>
       </div>
     </transition>
@@ -86,6 +69,7 @@
   import Vue from 'vue';
   import split from '../split/split'
   import ratingselect from '../ratingselect/ratingselect'
+  import {formatDateUsual} from '../../common/js/date'
 
   // 预定义 全部，推荐及吐槽的值，便于维护
   const POSITIVE = 0;
@@ -114,6 +98,15 @@
           positive: '推荐',
           negative: '吐槽'
         }
+      }
+    },
+    computed: {
+    },
+    filters: {
+      // 调用一个通用的方法处理时间，模块化编程思路
+      formatDate(time) {
+        let date = new Date(time);
+        return formatDateUsual(date, 'yyyy-MM-dd hh:mm');
       }
     },
     methods: {
@@ -152,10 +145,31 @@
       // 因为这里是food组件里的cartfood向父组件派发add时间，没有冒泡？？,故在这里接受并继续向父组件good组件传递
       addFood(target) {
         this.$emit('add', target)
+      },
+      // 处理来自ratingselect组件 监听到的事件
+      selectRating(type,event) {
+        this.selectType = type;
+        this.$nextTick(() => {
+          this.scroll.refresh();
+        })
+      },
+      toggleContent(event) {
+        this.onlyContent = !this.onlyContent;
+        this.$nextTick(() => {
+          this.scroll.refresh();
+        })
+      },
+      // 由 显示全部/好评/差评 及 是否有内容 这两个条件确定评论是否显示
+      needShow(type,text) {
+        // 如果只显示有内容的评论，评论内容为空
+        if (this.onlyContent && !text) {
+          return false;
+        }
+        if (this.selectType === ALL)
+          return true;
+        else
+          return type === this.selectType;
       }
-    },
-    computed:{
-
     }
   }
 </script>

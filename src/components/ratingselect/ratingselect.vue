@@ -38,7 +38,7 @@
     components: {},
     props: {
       // 拿到的数据
-      rating: {
+      ratings: {
         type: Array,
         default() {
           return [];

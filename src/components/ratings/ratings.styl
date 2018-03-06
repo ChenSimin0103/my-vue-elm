@@ -1,0 +1,147 @@
+
+.ratings
+  position absolute
+  top 174px
+  bottom 0
+  left 0
+  width 100%
+  overflow hidden
+  .ratings-content
+    .overview
+      display flex
+      padding 18px 0
+      .overview-left
+        flex 1
+        border-right 1px solid rgba(7,17,27,0.1)
+        text-align center
+        padding-top 6px
+        // 这是适配代码 屏幕宽度过于小时更改显示样式
+        @media only screen and (max-width: 330px)
+          flex 0 0 100px
+          width 100px
+        .score
+          margin-bottom 6px
+          font-size 24px
+          line-height 28px
+          color rgb(255,153,0)
+        .text
+          margin-bottom 8px
+          font-size 12px
+          line-height 12px
+          color rgb(7,17,27)
+        .rank-rate
+          margin-bottom 6px
+          font-size 10px
+          line-height 10px
+          color rgb(147,153,159)
+
+      .overview-right
+        flex 2
+        padding-left 24px
+        @media only screen and (max-width: 330px)
+          padding-left 6px
+        .score-wrapper
+          //position absolute
+          margin 8px 0
+          .title
+            display inline-block
+            vertical-align top
+            font-size 12px
+            line-height 18px
+            color rgb(7,17,27)
+          .star
+            margin 0 12px
+            display inline-block
+            vertical-align top
+          .showScore
+            display inline-block
+            vertical-align top
+            font-size 12px
+            line-height 18px
+            color rgb(255,153,0)
+
+
+        .delivery
+          font-size 12px
+          line-height 18px
+          .title
+            margin-right 12px
+            color rgb(7,17,27)
+          .time
+            color rgb(147,153,159)
+
+    .ratings-wrapper
+      margin 0 18px
+      .rating-item
+        display flex
+        padding 18px 0
+        border-bottom 1px solid rgba(7,17,27,0.1)
+        .avatar
+          flex 1
+          width 28px
+          height 28px
+          margin-right 12px
+          border-radius 50%
+          overflow hidden
+          //background-color greenyellow
+          img
+            width 28px
+            height 28px
+        .content
+          position relative
+          flex 11
+          //background-color greenyellow
+          .name
+            font-size 10px
+            line-height 12px
+            color rgb(7,17,27)
+          .star-wrapper
+            margin 4px 0 6px 0
+            font-size 0
+            .star
+              display inline-block
+              vertical-align top
+            .delivery
+              display inline-block
+              vertical-align top
+              margin-left 6px
+              font-size 10px
+              line-height 12px
+              color rgb(147,153,159)
+          .text
+            margin 6px 6px 6px 0
+            font-size 14px
+            line-height 18px
+            color rgb(7,17,27)
+          .recommend
+            // 这里并不需要添加icon-thumb_down 图标，而是不显示点赞图标，用v-show判断的
+            line-height 16px
+            .icon-thumb_up, .item
+              display inline-block
+              vertical-align top
+              margin 0 8px 4px 0
+            .icon-thumb_up
+              color rgb(0,160,220)
+            .item
+              padding 0px 6px
+              font-size 9px
+              line-height 16px
+              color rgb(147,153,159)
+              border 1px solid rgba(7,17,27,0.1)
+          .time
+            position absolute
+            top 0
+            right 0
+            font-size 10px
+            line-height 12px
+            font-weight 200
+            color rgb(147,153,159)
+
+
+
+
+
+
+
+
+
