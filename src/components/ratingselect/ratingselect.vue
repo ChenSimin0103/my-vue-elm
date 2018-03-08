@@ -67,7 +67,12 @@
       }
     },
     data () {
-      return {}
+      return {
+//        ratings: [],
+//        selectType: ALL
+//        onlyContent: false,
+//        desc: {}
+      }
     },
     computed: {
       positiveRatings() {

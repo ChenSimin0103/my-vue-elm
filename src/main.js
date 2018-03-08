@@ -5,6 +5,7 @@ import App from './App'
 import router from './router/index.js'
 import VueResource from 'vue-resource'
 
+// 在这里引入全局通用的样式（字符字体，1像素边框，适用整体的媒体查询）
 import './common/stylus/index.styl'
 
 //import styl from './common/stylus/index.js'

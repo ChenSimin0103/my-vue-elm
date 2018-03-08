@@ -8,7 +8,7 @@
                 :class="{'current':currentIndex===(index)}"
                 @click="selectMenu(index,$event)"
                 ref="menuList" >
-            <span class="text" >
+              <span class="text" >
               <span class="icon" v-show="item.type > 0" :class="classMap[item.type]"></span>
               {{item.name}}
             </span>

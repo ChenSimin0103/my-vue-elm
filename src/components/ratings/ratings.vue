@@ -35,7 +35,7 @@
         ></ratingselect>
         <div class="ratings-wrapper">
           <ul>
-            <li class="rating-item" v-for="rating in ratings">
+            <li class="rating-item" v-for="rating in ratings" v-show="needShow(rating.rateType,rating.text)">
               <div class="avatar">
                 <img :src="rating.avatar">
               </div>
@@ -86,7 +86,12 @@
       return {
         ratings: [],
         selectType: ALL,
-        onlyContent: true
+        onlyContent: true,
+        desc: {
+          all: '全部',
+          positive: '满意',
+          negative: '不满意'
+        }
       }
     },
     computed: {},
@@ -97,7 +102,26 @@
       }
     },
     methods: {
-
+      selectRating(type,event) {
+        this.selectType = type;
+        this.$nextTick(() => {
+          this.scroll.refresh();
+        })
+      },
+      toggleContent(event) {
+        this.onlyContent = !this.onlyContent;
+        this.$nextTick(() => {
+          this.scroll.refresh();
+        })
+      },
+      needShow(type,text) {
+        if (this.onlyContent && !text)
+          return false;
+        if (this.selectType === ALL)
+          return true;
+        else
+          return this.selectType === type
+      }
     },
     // 在组件创建之初就拿到ratings数组
     created() {
