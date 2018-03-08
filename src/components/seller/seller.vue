@@ -33,7 +33,7 @@
               </div>
             </li>
           </ul>
-          <div class="favorite">
+          <div class="favorite" @click="toggleFavorite">
             <span class="icon-favorite" :class="{'active':favorite}"></span>
             <span class="text">{{favoriteText}}</span>
           </div>
@@ -153,7 +153,10 @@
               }
             })
           }
-        }
+        },
+      toggleFavorite() {
+          this.favorite = !this.favorite;
+      }
       }
   }
 </script>
