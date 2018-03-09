@@ -95,7 +95,7 @@
     data () {
       return {
         favorite: (() => {
-          return loadFromLocal(this.seller.id, 'favorite')
+          return loadFromLocal(this.seller.id, 'favorite', false)
         })()
       }
     },
@@ -160,7 +160,8 @@
       toggleFavorite() {
           this.favorite = !this.favorite;
           // 传入参数：id,key,value
-          saveToLocal(this.seller.id, 'favorite', this.favorite)
+//        console.log(this.seller.id,this.favorite)
+           saveToLocal(this.seller.id, 'favorite', this.favorite)
       }
       }
   }

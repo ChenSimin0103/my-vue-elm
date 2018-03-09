@@ -7,16 +7,20 @@ export function saveToLocal (id, key, value) {
   // 双下划綫表示为私有变量
   let seller = window.localStorage.__seller__;
   if (!seller){
+    // 如果从没有创建过seller，则创建
     seller = {};
-    seller[id][key] = value;
+    seller[id] = {};
+    // seller[id][key] = value;
   } else {
+    // 将__seller__解析成对象
     seller = JSON.parse(seller)
+    // seller里没有id属性，则创建
     if (!seller[id]) {
       seller[id] = {};
     }
   }
   seller[id][key] = value;
-  window.localStorage.__seller__ = JSON,stringify(seller);
+  window.localStorage.__seller__ = JSON.stringify(seller);
 };
 // 读取
 export function loadFromLocal (id, key, def) {

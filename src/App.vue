@@ -44,11 +44,13 @@
     // 此处使用生命周期钩子函数created()
     // 来在实例创建完成后立即调用此函数
     created() {
-      this.$http.get('/api/seller').then((response) => {
+      this.$http.get('/api/seller?id='+this.seller.id).then((response) => {
         response = response.body;
         if (response.errno === ERR_OK) {
-          this.seller = response.data;
-          console.log(this.seller)
+//          this.seller = response.data;
+//          console.log(this.seller.id)
+          this.seller = Object.assign({},this.seller,response.data)
+//          console.log(this.seller)
         }
       });
     }
