@@ -19,7 +19,8 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import header from 'components/header/header'
+  import header from 'components/header/header';
+  import {urlParse} from './common/js/util';
 
   const ERR_OK = 0;
 
@@ -30,7 +31,14 @@
     },
     data() {
       return {
-        seller: {}
+        seller: {
+          // 用一个立即执行函数从url中拿到商家id
+          id: (() => {
+            let queryParam = urlParse();
+            console.log(queryParam)
+            return queryParam.id;
+          })()
+        }
       }
     },
     // 此处使用生命周期钩子函数created()

@@ -53,7 +53,7 @@
         </div>
         <split></split>
         <div class="pics">
-          <h1 class="title">商家实景</h1>
+          <h1 class="title">商家实景1</h1>
           <div class="pic-wrapper" ref="picWrapper">
             <ul class="pic-list" ref="picList">
               <li class="pic-item" v-for="pic in seller.pics">
@@ -79,6 +79,7 @@
   import star from '../star/star.vue';
   import split from '../split/split.vue';
   import BScroll from 'better-scroll';
+  import {saveToLocal,loadFromLocal} from '../../common/js/store'
 
   export default {
     name: 'seller',
@@ -93,7 +94,9 @@
     },
     data () {
       return {
-        favorite: false
+        favorite: (() => {
+          return loadFromLocal(this.seller.id, 'favorite')
+        })()
       }
     },
     computed: {
@@ -156,6 +159,8 @@
         },
       toggleFavorite() {
           this.favorite = !this.favorite;
+          // 传入参数：id,key,value
+          saveToLocal(this.seller.id, 'favorite', this.favorite)
       }
       }
   }

@@ -20,7 +20,7 @@ module.exports = {
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
 
-    
+
     /**
      * Source Maps
      */
@@ -64,7 +64,7 @@ module.exports = {
     // npm install --save-dev compression-webpack-plugin
     productionGzip: false,
     productionGzipExtensions: ['js', 'css'],
-    
+
     // Run the build command with an extra argument to
     // View the bundle analyzer report after build finishes:
     // `npm run build --report`
