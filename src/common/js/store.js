@@ -33,5 +33,6 @@ export function loadFromLocal (id, key, def) {
     return def;
   }
   let ret = seller[key];
+  // ret存在则输出ret，不存在输出def
   return ret || def
 }

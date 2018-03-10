@@ -91,14 +91,15 @@
         if (!event._constructed) {
           return;
         }
-        this.selectType = type;
+        // 此处屏蔽原因: 修改状态不应再子组件中修改，而是应在父组件中修改后传进来
+//        this.selectType = type;
         this.$emit('select', type)
       },
       toggleContent(event) {
         if (!event._constructed) {
           return;
         }
-        this.onlyContent = !this.onlyContent;
+//        this.onlyContent = !this.onlyContent;
         this.$emit('toggle',this.onlyContent)
       }
     }

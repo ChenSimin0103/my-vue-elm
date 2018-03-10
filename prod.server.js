@@ -6,12 +6,12 @@ var port = process.env.PORT || config.build.port;
 var app = express();
 
 var router = express.Router();
-
+// 定义一个路由
 router.get('/', function (req, res, next) {
 	req.url = '/index.html';
 	next();
 });
-
+// 使用这个路由
 app.use(router);
 // 拿到模拟数据及定义路由 的代码
 var appData = require('./data.json');

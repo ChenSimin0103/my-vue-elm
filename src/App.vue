@@ -3,13 +3,13 @@
     <v-header :seller="seller"></v-header>
     <div class="tab">
       <div class="tab-item">
-        <router-link to="/goods">to goods</router-link>
+        <router-link to="/goods">商品</router-link>
       </div>
       <div class="tab-item">
-        <router-link to="/ratings">to ratings</router-link>
+        <router-link to="/ratings">评论</router-link>
       </div>
       <div class="tab-item">
-        <router-link to="/seller">to seller</router-link>
+        <router-link to="/seller">商家</router-link>
       </div>
     </div>
     <keep-alive>

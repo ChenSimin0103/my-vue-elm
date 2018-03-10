@@ -65,6 +65,9 @@ module.exports = {
     productionGzip: false,
     productionGzipExtensions: ['js', 'css'],
 
+    // 在服务器上跑打包后的工程
+    port: 9000,
+
     // Run the build command with an extra argument to
     // View the bundle analyzer report after build finishes:
     // `npm run build --report`
